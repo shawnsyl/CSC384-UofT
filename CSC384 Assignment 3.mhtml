@@ -1,0 +1,429 @@
+From: <Saved by Blink>
+Snapshot-Content-Location: https://www.teach.cs.toronto.edu/~csc384h/fall/Assignments/A3/csp.html
+Subject: CSC384 Assignment 3
+Date: Tue, 13 Nov 2018 16:07:30 -0000
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----MultipartBoundary--D8u1OWGHa6SBjspGgXnIG5HlbYbwgFiSYqGxfBDAPR----"
+
+
+------MultipartBoundary--D8u1OWGHa6SBjspGgXnIG5HlbYbwgFiSYqGxfBDAPR----
+Content-Type: text/html
+Content-ID: <frame-239E43488C7266D3CFC16F73166F1F4C@mhtml.blink>
+Content-Transfer-Encoding: binary
+Content-Location: https://www.teach.cs.toronto.edu/~csc384h/fall/Assignments/A3/csp.html
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  <title>CSC384 Assignment 3</title>
+</head>
+<body>
+  <h2 class="project_title">Assignment 3: CSPs
+      <p>Posted Oct 31st, due Friday Nov 16th @ 11:59pm</p></h2>
+  <hr>
+  <h3>Table of Contents</h3>
+  <ul>
+    <li><a href="https://www.teach.cs.toronto.edu/~csc384h/fall/Assignments/A3/csp.html#Introduction">Introduction</a></li>
+    <li><a href="https://www.teach.cs.toronto.edu/~csc384h/fall/Assignments/A3/csp.html#Autograder">Autograder</a></li>
+    <li><a href="https://www.teach.cs.toronto.edu/~csc384h/fall/Assignments/A3/csp.html#Welcome">Welcome</a></li>
+    <li><a href="https://www.teach.cs.toronto.edu/~csc384h/fall/Assignments/A3/csp.html#Q1">Q1: Table Constraint</a></li>
+    <li><a href="https://www.teach.cs.toronto.edu/~csc384h/fall/Assignments/A3/csp.html#Q2">Q2: Forward Checking</a></li>
+    <li><a href="https://www.teach.cs.toronto.edu/~csc384h/fall/Assignments/A3/csp.html#Q3">Q3: GacEnforce and GAC</a></li>
+    <li><a href="https://www.teach.cs.toronto.edu/~csc384h/fall/Assignments/A3/csp.html#Q4">Q4: AllDiff for Sudoku</a></li>
+    <li><a href="https://www.teach.cs.toronto.edu/~csc384h/fall/Assignments/A3/csp.html#Q5">Q5: NValues  Constraint</a></li>
+    <li><a href="https://www.teach.cs.toronto.edu/~csc384h/fall/Assignments/A3/csp.html#Q6">Q6: Plane Scheduling Problem</a></li>
+</ul>
+
+  <hr>
+  <h3><a name="Introduction"></a>Introduction</h3>
+      <p>In this project, you will implement some new constraints and
+      backtracking search algorithms.</p>
+      <p>Note that this code base is unrelated to the Berkeley pacman
+        code base. So you will not need any of the files from A1 nor
+        A2.  (If anyone has a good idea as to how to use CSPs within
+        the pacman framework please let us know).</p>
+      <!-- <p>Unlike Assignment 1 and Assignment 2, no autograder is being released with this project.  -->
+      <p>The code for this project contains the following files,
+      available as a <a href="https://www.teach.cs.toronto.edu/~csc384h/fall/Assignments/A3/a3.zip">zip archive.</a></p>
+      <table class="intro" border="0" cellpadding="10">
+        <tbody>
+          <tr>
+            <td colspan="2"><b>Files you'll edit:</b></td>
+          </tr>
+          <tr>
+            <td><code>backtracking.py</code></td>
+            <td>Where all of the code related to backtracking search
+            is located. You will implement forward checking and gac
+            search in this file.</td>
+          </tr>
+          <tr>
+            <td><code>csp_problems.py</code></td>
+            <td>Where all of the code related implementing different
+            CSP problems is located. You will implement a new version
+            of the nQueens CSP and a CSP to solve the plane scheduling
+            problem in this file. </td>
+          </tr>
+          <tr>
+            <td><code>constraints.py</code></td>
+            <td>Where all of the code related implementing various
+            constraints is located. You will implement the NValues 
+            constraint in this file. </td>
+          </tr>
+          <tr>
+            <td colspan="2"><b>Files you can ignore:</b></td>
+          </tr>
+          <tr>
+            <td><code>csp.py</code></td>
+            <td>File containing the definitions of Variables, Constraints, and CSP classes.</td>
+          </tr>
+          <tr>
+            <td><code>util.py</code></td>
+            <td>Some basic utility functions.</td>
+          </tr>
+          <tr>
+            <td><code>nqueens.py</code></td>
+            <td>Solve nQueens problems.</td>
+          </tr>
+          <tr>
+            <td><code>sudoku.py</code></td>
+            <td>Solve sudoku problems.</td>
+          </tr>
+          <tr>
+            <td><code>plane_scheduling.py</code></td>
+            <td>Solve plane scheduling problems.</td>
+          </tr>
+          <tr>
+            <td><code>autograder.py</code></td>
+            <td>Program for evaluating your solutions. As always your
+                solution might also be evaluated with additional tests
+                besides those performed by the autograder.</td>
+          </tr>
+        </tbody>
+      </table>
+  <p></p>
+  <p><strong>Files to Edit and Submit:</strong> You will fill in
+    portions of <code>backtraking.py</code>, <code>csp.py</code>,
+    and <code>csp_problems.py</code> during the assignment.  You may
+    also add other functions and code to these file so as to create a
+    modular implementation. You will submit these file with your
+    modifications. Please <em>do not</em> change the other files in
+    this distribution.</p>
+
+  <p><strong>Evaluation:</strong> Your code will be autograded for
+    technical correctness. The tests in <code>autograder.py</code>
+    will be run. Please <em>do not</em> change the names of any
+    provided functions or classes within the code, or you will wreak
+    havoc on the autograder.
+    </p>
+
+  <p><strong>Getting Help:</strong> You are not alone! If you find
+    yourself stuck on something, contact the course staff for
+    help. There will be scheduled help sessions (to be announced), the
+    piazza discussion forum will be monitored and questions answered,
+    and you can also ask questions about the assignment during office
+    hours. These things are for your support; please take advantage of
+    them.  If you can't make our office hours, let us know and we will
+    arrange a different appointment. We want the assignment to be
+    rewarding and instructional, not frustrating and demoralizing. But,
+    we don't know when or how to help unless you ask.</p>
+  
+  <p><strong>Piazza Discussion:</strong> <b>Please be careful not to post
+      spoilers.</b></p>
+
+  <hr>
+
+  <h3><a name="Submit"></a>What to Submit</h3> You will be using MarkUs to
+  submit your assignment. You will submit three files:
+  <ol>
+    <li>Your modified <code>backtracking.py</code>
+    </li><li>Your modified <code>csp_problems.py</code>
+    </li><li>Your modified <code>constraints.py</code>
+    </li><li>A signed copy of the following <a href="https://www.teach.cs.toronto.edu/~csc384h/fall/Assignments/A3/acknowledgment_form.pdf">acknowledgment</a>
+  </li></ol>  
+
+<b>Note:</b> <font color="orange">In the various parts below we ask a
+number of questions. You do not have to hand in answers to these
+questions, rather these questions are designed to help you understand
+the material.</font>
+<hr>
+<h3><a name="Autograder"></a>AutoGrader</h3>
+<code>autograder.py</code> is not the same as the Berkeley autograder. You can only run the command<br><br>
+<code>python autograder.py -q qn</code><br><br> where <code>qn</code>
+is one
+of <code>q1</code>, <code>q2</code>, <code>q3</code>, <code>q4</code>,
+or <code>q5</code>.
+
+<p>Or you can run the grader on all questions together with the command <br><br>
+  <code>python autograder.py</code>
+
+</p><hr>
+
+  <div class="project">
+    <h3><a name="Welcome"></a>CSPs</h3>
+    <hr>
+  <div class="project">
+    <h3><a name="Q1"></a>Question 1 (4 points): Implementing a Table Constraint</h3>
+    <p><code>backtracking.py</code> already contains an implementation
+    of BT (plain backtracking search) while
+     <code>csp_problems.py</code> contains an implementation of the
+    nQueens problem.  Try running <br><br><code>python nqueens.py
+        8</code><br><br> to solve the 8 queens problem using BT. If you run
+    <br><br><code>python nqueens.py -c 8</code><br><br> the program
+    will find all solutions to the 8-Queens problem.
+
+    Try <br><br><code>python nqueens.py --help</code><br><br> to see
+    the other arguments you can use. (However, you haven't
+    implemented FC nor GAC yet, so you can't use these algorithms yet.)
+
+    Try some different small numbers with the '-c' option, to see how
+    the number of solutions grows with the number of Queens. Also
+    observe that even numbered queens are generally faster to solve,
+    and the time to find a single solution for 'BT' grows quite
+    quickly.
+
+    Observe the number of nodes explored. Later once you have FC and
+    GAC implemented you will see that they explore fewer nodes.
+
+    <br><br> For this question look
+    at <code>constraint.py</code>. There you will find the
+    class <code>QueensTableConstraint</code> that you have to
+    implement for this question. This class creates a table constraint
+    to capture the nQueens constraint.  Once you have that implemented
+    you can run
+    <br><br><code>python nqueens.py -t 8</code><br><br> to solve the
+    nQueens CSP using your table constraint implementation.  Check a
+    number of sizes and '-c' options: you should get the same
+    solutions returned irrespective of whether or not you use
+    '-t'. That is, your table constraint should yield the same
+    behavior as the original <code>QueensConstraint</code>
+  </p><hr>
+
+  <div class="project">
+    <h3><a name="Q2"></a>Question 2 (5 points): Forward Checking</h3>
+    <p>In <code>backtracking.py</code> you will find the unfinished
+      function <code>FC</code>. You have to complete this function.
+      Note that the essential subroutine <code>FCCheck</code> has
+      already been implemented for you.
+
+      Note that your implementation must deal correctly with finding
+      one or all solutions. Check how this is done in the already
+      implemented <code>BT</code> algorithm...just be sure that you
+      restore all pruned values even if <code>FC</code> is terminating
+      after one solution.
+
+      </p><p>After implementing <code>FC</code> you will be able to run
+      <br><br><code>python nqueens.py -a FC 8</code><br><br> to solve
+      8-Queens with forward checking. Solve some different sizes and
+      check how the number of nodes explored differs from
+      when <code>BT</code> is used.
+
+      <br><br>Also try solving sudoku using the command<br><br><code>python sudoku.py 1</code><br><br>
+      Which will solve board #1 using Forward Checking. Try other boards (1 to 7).
+
+      Use <br><br><code>python sudoku.py --help</code><br><br> to see
+      the other arguments you can use. <br><br>
+
+      Also try <br><br><code>python sudoku.py -a 'BT' 1</code><br><br> to see
+      how BT performs compared to FC. Finally try
+      <br><br><code>python sudoku.py -a 'FC' -c 1</code><br><br>
+      To find all solutions using FC. Check if any of the boards 1-7 have more than one solution. <br><br>
+
+      Note also that if you have a sudoku board you would like to
+      solve, you can easily add it into <code>sudoku.py</code> and
+      solve it. Look at the code in this file to see how input boards
+      are formatted and placed in the list <code>boards</code>. Once a
+      new board is added to the list <code>boards</code> it can be
+      solved with the command <code>python sudoku.py -a 'FC' k</code>
+      where <code>k</code> is the position of the new board in the list 
+      <code>boards</code>
+    </p><hr>
+
+    <div class="project">
+      <h3><a name="Q3"></a>Question 3 (7 points): GacEnforce and GAC</h3>
+      <p>In <code>backtracking.py</code> you will find
+      unfinished <code>GacEnforce</code> and <code>GAC</code>
+        routines. Complete these functions.
+
+      </p><p>After finishing these routines you will be able to run
+        <br><br><code>python nqueens.py -a GAC 8</code><br><br> Try
+        different numbers of Queens and see how the number of nodes
+        explored differs from when you run <code>FC</code>.
+
+      </p><p>Does <code>GAC</code> also take less time
+      than <code>FC</code> on <code>sudoku</code>? What about
+      on <code>nqueens</code>?
+
+      </p><p>Now try running 
+        <br><br><code>python sudoku.py -e 1</code><br><br> which will
+       not do any backtracking search, it will only run 
+        <code>GacEnforce</code> at the root.
+
+      </p><p>Try running only <code>GacEnforce</code> on each board to see
+        which ones are solved by only doing <code>GacEnforce</code>.
+
+    </p><hr>
+
+    <div class="project">
+      <h3><a name="Q4"></a>Question 4 (2 points): AllDiff for
+      Sudoku</h3> In <code>csp_problems.py</code> you will find the
+      function <code>sudokuCSP</code>. This function takes
+      a <code>model</code> parameter that is either <code>'neq'</code>
+      or <code>'alldiff'</code>. When <code>model == 'neq'</code> the
+      returned CSP contains many binary not-equals constraints. But
+      when <code>model == 'alldiff'</code> the model should contain 27
+      allDifferent constraints.
+
+      <p>Complete the implementation of <code>sudokuCSP</code> so it
+      properly handles the case when <code>model == 'alldiff'</code>
+        using allDifferent constraints instead of binary not-equals.
+
+      </p><p>Note that this question is <b>very easy</b> as you can use
+      the <code>class AllDiffConstraint(Constraint)</code> that is
+      already implemented in <code>constraints.py</code>. However, you
+      must successfully complete Question 3 to get any marks on this
+      question.
+    </p><hr>
+
+    <div class="project">
+      <h3><a name="Q5"></a>Question 5 (4 points): NValues
+      Constraint</h3> The <code>NValues</code> Constraint is a
+      constraint over a set of variables that places a lower and an
+      upper bound on the number of those variables taking on
+      value from a specified set of values.
+
+      <p>In <code>constraints.py</code> you will find an incomplete
+      implementation of <code>class NValuesConstraint</code>. In
+      particular, the function <code>hasSupport</code> has not yet
+      been implemented. Complete this implementation. 
+    </p><hr>
+
+    <h3><a name="Q6"></a>Question 6 (10 points): Plane Scheduling</h3>
+    Implement a solver
+    for the following plane scheduling problem by encoding the problem
+      as a CSP and using your already developed code to find solutions.<br><br>
+
+    You have a set of planes, and a set of flights each of which needs
+    to be flown by some plane. The task is to assign to each plane a
+    sequence of flights so that:
+    <ol>
+      <li> Each plane is only assigned flights that it is capable of
+        flying (e.g., small planes cannot fly trans-Atlantic flights).
+      </li><li> Each plane's initial flight can only be a flight departing
+        from that plane's initial location.
+      </li><li> The sequence of flights flown by every plane must be
+        feasible. That is, if F2 follows F1 in a plane's sequence of
+        flights then it must be that F2 can follow F1 (normally this
+        would mean that F1 arrives at the same location that F2
+        departs).
+      </li><li> Certain flights terminate at a maintenance location. All
+        planes must be serviced with a certain minimum frequency. If
+        this minimum frequency is K then in the sequence of flights
+        assigned to a plane at least one out every subsequence of K
+        flights must be a flight terminating at a maintenance
+        location. Note that if a plane is only assigned J flights with
+        J &lt; K, then it satisfies this constraint.
+      </li><li> Each flight must be scheduled (be part of some plane's
+        sequence of flights). And no flight can be scheduled more than
+        once.
+    </li></ol>
+
+    <b>Example</b><br> Say we have two planes AC-1 and AC-2, and 5
+    flights AC001, AC002, AC003, AC004, and AC005. Further:
+    <ol>
+      <li> AC-1 can fly any of these flights while AC-2 cannot fly
+      AC003 (but can fly the others).
+      </li><li> AC-1 can start with flight AC001, while AC-2 can start with
+        AC004 or AC005.
+      </li><li> AC002 can follow AC001, AC003 can follow AC002, and AC001
+        can follow AC003 (these form a one-way circuit since we can't,
+        e.g., fly AC003 first then AC002). In addition, AC004 can
+        follow AC003, AC005 can follow AC004, and AC004 can follow
+        AC005.
+      </li><li> AC003 and AC005 end at a maintenance location.
+      </li><li> The minimum maintenance frequency is 3.
+    </li></ol>
+    In this case a legal solution would be for AC-1's schedule to be
+    the sequence of flights [AC001, AC002, AC003, AC004] while AC-2's
+    schedule is [AC005] (notice that for AC-1 every subsequence of
+    size 3 at least one flight ends at a maintenance location). Another
+    legal schedule would be for AC-1 to fly [AC001, AC002, AC003,
+    AC004, AC005] and AC-2 to fly [] (i.e., AC-2 does do any flights).<br>
+
+    <p>Your task is to take a problem instance, where information like
+    that given in the above example is specified, and build a CSP
+    representation of the problem. You then solve the CSP using any of
+    the search algorithms, and from the solution extract a legal
+    schedule for each plane. Note that the set of constraints you have
+    (and have built in the previous questions) are sufficient to model
+    this problem (but feel free to implement further constraints if
+    you need them for the CSP model you develop).</p>
+
+    <p>See <code>plane_scheduling.py</code> for the details of how
+    problem instances are specified; <code>csp_problems.py</code>
+    contains the class <code>PlaneProblem</code> for holding a
+      specific problem.
+
+    </p><p>You are to complete the implementation
+    of <code>solve_planes</code> in the
+    file <code>csp_problems.py</code>. This function takes
+    a <code>PlaneProblem</code>, constructs a CSP, solves that CSP
+    with backtracking search, converts the solutions of the CSP into
+    the required format (see the <code>solve_planes</code> starter
+    code for a specification of the output format) and then returns
+    the solutions.
+
+    </p><p>You can also test your code
+    with <code>plane_scheduling.py</code>. The
+    command <br><br><code>python plane_scheduling.py -a GAC -c
+    K</code><br><br> where K is the problem number, will invoke your
+    code (from <code>csp_problems.py</code>) on the specified
+    problem. (Use <br><code>python plane_scheduling.py
+    --help</code><br> for further information). It can be particularly
+    useful to test your code on problems 1-4 as these problems only
+      test one of the constraints you have to satisfy.
+
+    </p><p><b>A Few Hints:</b>
+      </p><p>First you should decide on the variables and the domain of
+      values for these variables that you want to use in your CSP
+      model. You should design your variables so that it makes it easy
+      to check the constraints. Avoid variables that require an
+      exponential number of values: performing GAC on such constraints
+      will be too expensive. A number of values equal to the number of
+      flights times number of planes values would be ok.
+
+      </p><p>Try not to use table constraints over large numbers of
+        variables. Table constraints over two or three variables are
+        fine: performing GAC on table constraints with large
+        numbers of variables becomes very expensive.
+
+      </p><p>In some models it is useful to observe that if plane P can
+      fly up to K different flights, then the length of its sequence
+      of flights is at most K. For example, in the example above, AC-1
+      can fly 5 different flights while AC-2 can fly 4 different
+      flights. So clearly, the sequence of flights flown by AC-1 can't
+      be more than 5 long, and for AC-2 in sequence can't be more than
+      4 long.
+
+      </p><p>As an example of a set of variables and values that would be
+        inadequate consider having a variable for every flight with
+        values being the set of planes that can fly that flight. This
+        a reasonable number of variables, and it makes the last
+        constraint, that every flight is scheduled only once,
+        automatically satisfied (since every variable can only have
+        one value). However, these variables by themselves will not be
+        sufficient, as we won't be able to determine the sequencing of
+        the set of flights assigned to a particular plane.
+        Potentially, such variables might be useful, but other
+        variables would have to be added to model the sequencing part
+        of the CSP.
+
+    </p><h3>Submission</h3>
+    <p>You're not done yet! You will also need to submit your code and
+   signed acknowledgment to MarkUs.</p>
+
+
+  </div>
+
+
+</div></div></div></div></div></body></html>
+------MultipartBoundary--D8u1OWGHa6SBjspGgXnIG5HlbYbwgFiSYqGxfBDAPR------
