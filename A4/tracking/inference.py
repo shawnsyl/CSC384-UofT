@@ -572,6 +572,7 @@ class JointParticleFilter:
                 else:
                     p = self.getParticleWithGhostInJail(p, i)
             allPossible[p] += weight
+        allPossible.normalize()
         if all(i == 0 for i in allPossible.values()):
             self.initializeParticles()
         else:
